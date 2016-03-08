@@ -32,7 +32,9 @@ public class Main {
         Produto produto = new Produto();
 
         int opcao;
-
+        
+        String id;
+        
         System.out.println("\n MENU:  1- Inserir  2- Listar 3- Buscar");
         opcao = (Integer.parseInt(entrada.nextLine()));
 
@@ -110,7 +112,7 @@ public class Main {
                     ler = new BufferedReader(converteParaBufferedLer);
 
                     System.out.println("entre com o id do procuto: ");
-                    String id = entrada.nextLine();
+                    id = entrada.nextLine();
 
                     while (ler.ready()) {
 
@@ -130,14 +132,24 @@ public class Main {
                     opcao = (Integer.parseInt(entrada.nextLine()));
 
                     break;
-                    
+
                 case 4:
-                    
+
                     //excluir
                     converteParaBufferedLer = new FileReader(banco);
-                    ler =new BufferedReader(converteParaBufferedLer);
+                    ler = new BufferedReader(converteParaBufferedLer);
+
+                    System.out.println("Indique o id: ");
+                    id = entrada.nextLine();
                     
-                                        
+                    while(ler.ready()){
+                        
+                        String linha = ler.readLine();
+                        String idFormatado = linha.substring(0, 4);
+                        
+                        
+                        
+                    }
                     
                     break;
 
