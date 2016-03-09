@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -27,14 +29,18 @@ public class Main {
 
         BufferedReader ler;
 
+        FileWriter bandoEscrever;
+
+        BufferedWriter escrever;
+
         Scanner entrada = new Scanner(System.in);
 
         Produto produto = new Produto();
 
         int opcao;
-        
+
         String id;
-        
+
         System.out.println("\n MENU:  1- Inserir  2- Listar 3- Buscar");
         opcao = (Integer.parseInt(entrada.nextLine()));
 
@@ -45,8 +51,8 @@ public class Main {
                 case 1:
 
                     //entrada
-                    FileWriter bandoEscrever = new FileWriter(banco, true);
-                    BufferedWriter escrever = new BufferedWriter(bandoEscrever);
+                    bandoEscrever = new FileWriter(banco, true);
+                    escrever = new BufferedWriter(bandoEscrever);
 
                     System.out.println("ID: ");
                     produto.setId(Integer.parseInt(entrada.nextLine()));
@@ -139,18 +145,23 @@ public class Main {
                     converteParaBufferedLer = new FileReader(banco);
                     ler = new BufferedReader(converteParaBufferedLer);
 
+                    List<String> produtos = new ArrayList<>();
+
                     System.out.println("Indique o id: ");
                     id = entrada.nextLine();
-                    
-                    while(ler.ready()){
-                        
+
+                    while (ler.ready()) {
+
                         String linha = ler.readLine();
-                        String idFormatado = linha.substring(0, 4);
-                        
-                        
-                        
+                        String idForm = linha.substring(0, 4);
+
+                        produtos.add(linha);
+
                     }
-                    
+
+                    converteParaBufferedLer.close();
+                    ler.close();
+
                     break;
 
             }
