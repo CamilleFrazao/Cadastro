@@ -33,6 +33,8 @@ public class Main {
 
         BufferedWriter escrever;
 
+        List<String> produtos;
+
         Scanner entrada = new Scanner(System.in);
 
         Produto produto = new Produto();
@@ -41,7 +43,7 @@ public class Main {
 
         String id;
 
-        System.out.println("\n MENU:  1- Inserir  2- Listar 3- Buscar");
+        System.out.println("\n MENU:  1- Inserir  2- Listar 3- Buscar 4- Excluir 5- Editar");
         opcao = (Integer.parseInt(entrada.nextLine()));
 
         do {
@@ -86,7 +88,7 @@ public class Main {
 
                     escrever.close();
 
-                    System.out.println("\n MENU:  1- Inserir  2- Listar 3- Buscar");
+                    System.out.println("\n MENU:  1- Inserir  2- Listar 3- Buscar 4- Excluir 5- Editar");
                     opcao = (Integer.parseInt(entrada.nextLine()));
 
                     break;
@@ -106,7 +108,7 @@ public class Main {
 
                     ler.close();
 
-                    System.out.println("\n MENU:  1- Inserir  2- Listar 3- Buscar");
+                    System.out.println("\n MENU:  1- Inserir  2- Listar 3- Buscar 4-Excluir 5- Editar");
                     opcao = (Integer.parseInt(entrada.nextLine()));
 
                     break;
@@ -134,7 +136,7 @@ public class Main {
 
                     ler.close();
 
-                    System.out.println("\n MENU:  1- Inserir  2- Listar 3- Buscar");
+                    System.out.println("\n MENU:  1- Inserir  2- Listar 3- Buscar 4- Excluir 5- Editar");
                     opcao = (Integer.parseInt(entrada.nextLine()));
 
                     break;
@@ -145,10 +147,7 @@ public class Main {
                     converteParaBufferedLer = new FileReader(banco);
                     ler = new BufferedReader(converteParaBufferedLer);
 
-                    List<String> produtos = new ArrayList<>();
-
-                    System.out.println("Indique o id: ");
-                    id = entrada.nextLine();
+                    produtos = new ArrayList<>();
 
                     while (ler.ready()) {
 
@@ -159,8 +158,143 @@ public class Main {
 
                     }
 
-                    converteParaBufferedLer.close();
+                    bandoEscrever = new FileWriter(banco);
+                    escrever = new BufferedWriter(bandoEscrever);
+
+                    while (ler.ready()) {
+
+                        String linha = ler.readLine();
+
+                        linha = " ";
+
+                        escrever.write(linha);
+
+                    }
+
+                    System.out.println("QUAL O ID PARA APAGAR?");
+                    String entradaId = entrada.nextLine();
+
+                    int i = 0;
+
+                    while (i < produtos.size()) {
+
+                        System.out.println(produtos.get(i));
+
+                        String s = produtos.get(i).substring(0, 4);
+
+                        System.out.println(s);
+
+                        if (s.equals(entradaId)) {
+                            System.out.println("ex: " + produtos.get(i));
+                            produtos.remove(produtos.get(i));
+                            i--;
+                        }
+                        if (!produtos.contains(entradaId)) {
+                            i++;
+                        }
+
+                    }
+
+                    for (i = 0; i < produtos.size(); i++) {
+
+                        escrever.write(produtos.get(i));
+                        escrever.newLine();
+                    }
+
                     ler.close();
+                    escrever.close();
+
+                    System.out.println("\n MENU:  1- Inserir  2- Listar 3- Buscar 4-Excluir 5- Editar");
+                    opcao = (Integer.parseInt(entrada.nextLine()));
+
+                    break;
+
+                case 5:
+                    //excluir
+                    converteParaBufferedLer = new FileReader(banco);
+                    ler = new BufferedReader(converteParaBufferedLer);
+
+                    produtos = new ArrayList<>();
+
+                    while (ler.ready()) {
+
+                        String linha = ler.readLine();
+                        String idForm = linha.substring(0, 4);
+
+                        produtos.add(linha);
+
+                    }
+
+                    bandoEscrever = new FileWriter(banco);
+                    escrever = new BufferedWriter(bandoEscrever);
+
+                    while (ler.ready()) {
+
+                        String linha = ler.readLine();
+
+                        linha = " ";
+
+                        escrever.write(linha);
+
+                    }
+
+                    System.out.println("QUAL O ID PARA APAGAR?");
+                    String idEditar = entrada.nextLine();
+
+                    int m = 0;
+
+                    while (m < produtos.size()) {
+
+                        System.out.println(produtos.get(m));
+
+                        String s = produtos.get(m).substring(0, 4);
+
+                        System.out.println(s);
+
+                        if (s.equals(idEditar)) {
+
+                            System.out.println("ex: " + produtos.get(m));
+
+                            System.out.println("Entre com o novo id: ");
+                            produto.setId(Integer.parseInt(entrada.nextLine()));
+
+                            System.out.println("Entre com o novo nome: ");
+                            produto.setNome(entrada.nextLine());
+
+                            System.out.println("Entre com a nova quantidade");
+                            produto.setQuantidade(Integer.parseInt(entrada.nextLine()));
+
+                            System.out.println("Entre com a nova Unidade");
+                            produto.setUnidade(Integer.parseInt(entrada.nextLine()));
+
+                            System.out.println("Entre com o novo valor: ");
+                            produto.setValor(Double.parseDouble(entrada.nextLine()));
+
+                            produtos.remove((m));
+
+                            m--;
+
+                            produtos.add(produto.getId() + ";" + produto.getNome() + ";" + produto.getQuantidade() + ";" + produto.getUnidade() + ";" + produto.getValor());
+
+                        }
+
+                        if (!produtos.contains(idEditar)) {
+                            m++;
+                        }
+
+                    }
+
+                    for (m = 0; m < produtos.size(); m++) {
+
+                        escrever.write(produtos.get(m));
+                        escrever.newLine();
+                    }
+
+                    ler.close();
+                    escrever.close();
+
+                    System.out.println("\n MENU:  1- Inserir  2- Listar 3- Buscar 4-Excluir 5- Editar");
+                    opcao = (Integer.parseInt(entrada.nextLine()));
 
                     break;
 
