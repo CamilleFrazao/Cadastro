@@ -43,27 +43,21 @@ public class Executavel {
             valores.add(dados[2]);
 
         }
-        
-        for (int i = 0; i < nomes.size(); i++) {
-            System.out.println(nomes.get(i));
-            pessoa.setNome(nomes.get(i));
-            pessoas.add(pessoa);
+        System.out.print("Datas     | ");
+        for (int j = 0; j < nomes.size(); j++) {
+            System.out.print(nomes.get(j) + " |");
         }
-//
-//        for (int i = 0; i < datas.size(); i++) {
-//
-//            pessoa.setData(datas.get(i));
-//            pessoa.setNome(nomes.get(i));
-//            pessoa.setValor(valores.get(i));
-//            
-//            pessoas.add(pessoa);
-//
-//        }
-        
-        for (int i = 0; i < pessoas.size(); i++) {
-            System.out.println(pessoas.get(i).getNome());
-        }
+        System.out.println();
 
+        for (int i = 0; i < datas.size(); i++) {
+            System.out.print(datas.get(i)+"|");
+
+            for (int z = 0; z < valores.size(); z++) {
+                System.out.print(valores.get(z)+"|");
+            }
+            System.out.println();
+        }
+        System.out.println();
     }
 
 }
